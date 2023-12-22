@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace CloudPhoto.Options;
 
 [Verb("init", HelpText = "Generating a settings file and creating a bucket")]

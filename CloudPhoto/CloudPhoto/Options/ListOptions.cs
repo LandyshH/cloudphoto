@@ -1,13 +1,8 @@
 ﻿using CommandLine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudPhoto.Options;
 
-[Verb("list", HelpText = "")]
+[Verb("list", HelpText = "Album and photo list")]
 public class ListOptions
 {
     [Option("album", HelpText = "Cloud Storage album name")]
