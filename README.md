@@ -8,4 +8,4 @@ dotnet publish --runtime {runtime} --configuration Release -p:PublishSingleFile=
 
 Так же не забудьте добавить в переменные среды путь до приложения cloudphoto
 
-# приложения для windows и linux лежат в архиве applications #
+# приложения для windows и linux лежат в архиве (applications)[CloudPhoto/applications.rar]#
