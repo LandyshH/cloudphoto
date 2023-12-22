@@ -19,13 +19,8 @@ public class ListCommandHandler
             };
 
             var directories = new List<string>();
-            ListObjectsV2Response response;
-            do
-            {
-                response = await s3Client.ListObjectsV2Async(request);
-                directories.AddRange(response.CommonPrefixes);
-                request.ContinuationToken = response.NextContinuationToken;
-            } while (response.IsTruncated);
+            var response = await s3Client.ListObjectsV2Async(request);
+            directories.AddRange(response.CommonPrefixes);
 
             if (directories.Count == 0)
             {

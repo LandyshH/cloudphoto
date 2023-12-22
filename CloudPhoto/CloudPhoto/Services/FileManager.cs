@@ -2,7 +2,6 @@
 using IniParser.Model;
 using IniParser;
 using CloudPhoto.Configuration;
-using System.IO;
 
 namespace CloudPhoto.Services;
 
