@@ -34,14 +34,16 @@ public class MksiteCommandHandler
                 var photosList = await GetPhotoUrlsFromAlbumAsync(s3Client, config.Bucket, directory);
                 var albumHtml = await GenerateAlbumHtmlAsync(albumName, photosList);
                 var albumKey = $"album{albumNames.Count}.html";
+
                 await UploadHtmlToS3Async(s3Client, config.Bucket, albumKey, albumHtml);
             }
 
             var indexHtml = await GenerateIndexHtmlAsync(albumNames);
+            var indexPath = Path.Combine($@"{AppContext.BaseDirectory}Pages\", "album.html");
             await UploadHtmlToS3Async(s3Client, config.Bucket, "index.html", indexHtml);
 
             var errorHtmlPath = Path.Combine($@"{AppContext.BaseDirectory}Pages\", "error.html");
-            var errorHtml = await ReadErrorHtmlAsync(errorHtmlPath);
+            var errorHtml = await ReadHtmlAsync(errorHtmlPath);
             await UploadHtmlToS3Async(s3Client, config.Bucket, "error.html", errorHtml);
 
             Console.WriteLine($"Website URL: http://{config.Bucket}.website.yandexcloud.net/");
@@ -52,7 +54,7 @@ public class MksiteCommandHandler
         }
     }
 
-    private async Task<string> ReadErrorHtmlAsync(string filePath)
+    private async Task<string> ReadHtmlAsync(string filePath)
     {
         try
         {
@@ -101,6 +103,7 @@ public class MksiteCommandHandler
 </html>");
 
         return sb.ToString();
+
     }
 
     private async Task<string> GenerateIndexHtmlAsync(List<string> albumNames)
@@ -136,7 +139,6 @@ public class MksiteCommandHandler
             BucketName = bucketName,
             Key = key,
             ContentBody = htmlContent,
-            ContentType = "text/html"
         };
 
         await s3Client.PutObjectAsync(putObjectRequest);
